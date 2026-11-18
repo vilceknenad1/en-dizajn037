@@ -12,8 +12,8 @@
     '06': [1254, 790, 'BUBBLE krevet u spavaćoj sobi'],
     '07': [1254, 790, 'BUBBLE krevet, frontalni pogled'],
     '08': [1254, 753, 'BUBBLE krevet, simetričan pogled na uzglavlje'],
-    '09': [1536, 625, 'BABL BABY dečiji krevet sa uzglavljem oblaka'],
-    '10': [1536, 625, 'BABL BABY dečiji krevet iz ugla'],
+    '09': [1536, 625, 'BUBBLE BABY dečiji krevet sa uzglavljem oblaka'],
+    '10': [1536, 625, 'BUBBLE BABY dečiji krevet iz ugla'],
     '11': [1312, 803, 'Dečiji krevet sa mišjim ušima'],
     '12': [1102, 647, 'Dečiji krevet sa mišjim ušima, frontalno'],
     '13': [1254, 739, 'ZEKA dečiji krevet sa zečjim ušima i džepovima'],
@@ -26,7 +26,7 @@
     { slug: 'bubble', name: 'BUBBLE', cats: ['kreveti'], catLabel: 'Kreveti · francuski ležaj', imgs: [['06', '45% 60%'], ['07', '50% 60%'], ['08', '50% 55%']], caption: 'Dostava i montaža širom Srbije', desc: 'Segmentirana tapacirana baza i visoko kapitonirano uzglavlje. Izrada po vašoj želji, dostava i montaža širom Srbije.' },
     { slug: 'zeka', name: 'ZEKA', cats: ['decji'], catLabel: 'Dečiji kreveti', imgs: [['13', '45% 55%']], caption: 'Ogradice i džepovi', desc: 'Dečiji krevet sa zečjim ušima, zaštitnim ogradicama i džepovima.', dims: [90, 120, 140], extras: ['Zaštitne ogradice', 'Džepovi'] },
     { slug: 'meda', name: 'MEDA', cats: ['decji'], catLabel: 'Dečiji kreveti', imgs: [['14', '50% 50%']], caption: '90, 120 i 140 × 200 cm', desc: 'Dečiji krevet sa ušima medveda. Pravi se u tri dimenzije.', dims: [90, 120, 140] },
-    { slug: 'babl-baby', name: 'BABL BABY', cats: ['decji'], catLabel: 'Dečiji kreveti', imgs: [['09', '45% 55%'], ['10', '35% 55%']], caption: 'Uzglavlje u obliku oblaka', desc: 'Dečiji krevet sa uzglavljem u obliku oblaka i udobnim dušekom.' },
+    { slug: 'bubble-baby', name: 'BUBBLE BABY', cats: ['decji'], catLabel: 'Dečiji kreveti', imgs: [['09', '45% 55%'], ['10', '35% 55%']], caption: 'Uzglavlje u obliku oblaka', desc: 'Dečiji krevet sa uzglavljem u obliku oblaka i udobnim dušekom.' },
     { slug: 'mali-krevet', name: 'Mali krevet', placeholderName: true, cats: ['decji'], catLabel: 'Dečiji kreveti', imgs: [['11', '50% 60%'], ['12', '50% 60%']], caption: 'Mali krevet za velike snove', desc: '„Mali krevet za velike snove“, sa uzglavljem u obliku mišjih ušiju.' }
   ];
   var CATS = [['all', 'Sve'], ['garniture', 'Garniture'], ['fotelje', 'Fotelje i dvosedi'], ['kreveti', 'Kreveti'], ['decji', 'Dečiji kreveti'], ['odmah', 'Odmah dostupno']];
@@ -36,10 +36,10 @@
   var find = function (slug) { for (var i = 0; i < PRODUCTS.length; i++) if (PRODUCTS[i].slug === slug) return PRODUCTS[i]; return null; };
   function img(k, pos, cls, sizes, eager) {
     var d = IMG[k], w = d[0], ss = [];
-    if (w > 640) ss.push('/assets/img/' + k + '-640.webp 640w');
-    if (w > 1024) ss.push('/assets/img/' + k + '-1024.webp 1024w');
-    ss.push('/assets/img/' + k + '.webp ' + w + 'w');
-    return '<img' + (cls ? ' class="' + cls + '"' : '') + ' src="/assets/img/' + k + '.webp" srcset="' + ss.join(', ') + '" sizes="' + (sizes || '(max-width: 767px) 100vw, 50vw') + '" width="' + w + '" height="' + d[1] + '" alt="' + (cls === 'alt' ? '' : esc(d[2])) + '" ' + (eager ? 'fetchpriority="high"' : 'loading="lazy"') + ' decoding="async" style="object-position: ' + pos + '">';
+    if (w > 640) ss.push('assets/img/' + k + '-640.webp 640w');
+    if (w > 1024) ss.push('assets/img/' + k + '-1024.webp 1024w');
+    ss.push('assets/img/' + k + '.webp ' + w + 'w');
+    return '<img' + (cls ? ' class="' + cls + '"' : '') + ' src="assets/img/' + k + '.webp" srcset="' + ss.join(', ') + '" sizes="' + (sizes || '(max-width: 767px) 100vw, 50vw') + '" width="' + w + '" height="' + d[1] + '" alt="' + (cls === 'alt' ? '' : esc(d[2])) + '" ' + (eager ? 'fetchpriority="high"' : 'loading="lazy"') + ' decoding="async" style="object-position: ' + pos + '">';
   }
 
   var params = new URLSearchParams(location.search);
@@ -59,7 +59,7 @@
   function card(p, i, dense) {
     var a = p.imgs[0], b = p.imgs[1];
     var title = p.placeholderName ? 'Mali krevet' : p.name.charAt(0) + p.name.slice(1).toLowerCase();
-    return '<div><a class="card card--p card--low" href="/katalog?model=' + p.slug + '" data-open="' + p.slug + '" data-cursor="Pogledaj" style="--d: ' + (i * 60) + 'ms" aria-label="' + esc(p.name) + ', otvori model">' +
+    return '<div><a class="card card--p card--low" href="katalog?model=' + p.slug + '" data-open="' + p.slug + '" data-cursor="Pogledaj" style="--d: ' + (i * 60) + 'ms" aria-label="' + esc(p.name) + ', otvori model">' +
       '<div class="card__bg">' + img(a[0], a[1], '', dense ? '(max-width: 767px) 100vw, 33vw' : '(max-width: 767px) 100vw, 50vw') + (b ? img(b[0], b[1], 'alt') : '') + '</div>' +
       '<div class="card__fa"></div><div class="card__fb"></div><div class="card__c"><span class="card__t">' + esc(p.name) + '</span><span class="card__cap">' + esc(p.caption) + '</span></div></a>' +
       '<div class="pmeta" style="--d: ' + (i * 60) + 'ms"><div><p class="t-sub">' + esc(p.catLabel) + '</p><h2 class="t-h3">' + esc(title) + '</h2>' + (p.isNew ? '<span class="tag">Novi model</span>' : '') + '</div>' +
@@ -79,7 +79,7 @@
     if (S.sort === 'new') list.sort(function (a, b) { return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0); });
     var n = list.length, word = n === 1 ? ' model' : ' modela';
     app.innerHTML = '<div class="wrap">' +
-      '<nav class="crumbs" aria-label="Putanja"><a href="/">Početna</a><span aria-hidden="true">/</span><span>Katalog</span></nav>' +
+      '<nav class="crumbs" aria-label="Putanja"><a href="./">Početna</a><span aria-hidden="true">/</span><span>Katalog</span></nav>' +
       '<div class="ktitle"><h1 class="t-h1">Katalog</h1><p class="t-lead muted" style="max-width: 30rem">Svaki model se izrađuje po meri. Boju i štof birate vi, a cenu dobijate na upit dok ne objavimo cenovnik.</p></div>' +
       '<div class="toolbar"><div class="chips chips--bar" role="group" aria-label="Kategorija">' + chips() + '</div>' +
       '<div class="tools"><button class="chip fbtn" type="button" data-sheet aria-haspopup="dialog">Filteri</button>' +
@@ -97,13 +97,13 @@
     var c = S.cfg;
     document.title = pr.name + ' — EN-DIZAJN';
     var gal = pr.imgs.map(function (im) { var d = IMG[im[0]]; return '<div class="iw" style="aspect-ratio: ' + d[0] + ' / ' + d[1] + '">' + img(im[0], im[1], '', '(max-width: 991px) 100vw, 55vw', true) + '</div>'; });
-    if (gal.length < 3) gal.push('<a class="gtile" href="/#kontakt"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M4 7h4l2-2h4l2 2h4v12H4z" fill="none" stroke="currentColor" stroke-width="1.3"></path><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="1.3"></circle></svg><p class="t-sub">Pogledaj u svom prostoru – pošaljite nam fotografiju sobe</p></a>');
+    if (gal.length < 3) gal.push('<a class="gtile" href="./#kontakt"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M4 7h4l2-2h4l2 2h4v12H4z" fill="none" stroke="currentColor" stroke-width="1.3"></path><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="1.3"></circle></svg><p class="t-sub">Pogledaj u svom prostoru – pošaljite nam fotografiju sobe</p></a>');
     if (gal.length < 3) gal.push('<div class="gtile gtile--sw"><span class="t-micro">Štofovi uskoro</span></div>');
     var k = 0, num = function () { k += 1; return (k < 10 ? '0' : '') + k; };
     var fab = FABRICS.filter(function (f) { return f[0] === c.fabric; })[0] || FABRICS[0];
     var dimLabel = c.dim === 'custom' ? 'Druge mere po meri' : c.dim + '×200 cm';
     var W = c.dim === 'custom' ? 0 : c.dim, dw = Math.round(W / 200 * 160);
-    var summary = 'EN-DIZAJN upit: ' + pr.name + (pr.parts ? ', ' + c.part : '') + ', ' + dimLabel + ', ' + fab[1] + (pr.extras ? ', dodaci: ' + (c.extras.length ? c.extras.join(', ') : 'bez') : '') + ' — ' + location.origin + '/katalog?' + query(pr);
+    var summary = 'EN-DIZAJN upit: ' + pr.name + (pr.parts ? ', ' + c.part : '') + ', ' + dimLabel + ', ' + fab[1] + (pr.extras ? ', dodaci: ' + (c.extras.length ? c.extras.join(', ') : 'bez') : '') + ' — ' + new URL('katalog?' + query(pr), location.href).href;
     var opt = function (label, pressed, attr) { return '<button class="opt num" type="button" ' + attr + ' aria-pressed="' + pressed + '">' + esc(label) + '</button>'; };
     var steps = '';
     if (pr.parts) steps += '<div class="step"><div class="step__h"><span class="step__n num">' + num() + '</span><span class="step__t">Komad</span><span class="step__v">' + esc(c.part) + '</span></div><div class="opts" role="group" aria-label="Komad">' + pr.parts.map(function (p) { return opt(p, c.part === p, 'data-part="' + esc(p) + '"'); }).join('') + '</div></div>';
@@ -118,9 +118,9 @@
       (W ? '<svg class="dimsvg" viewBox="0 0 320 220" role="img" aria-label="Skica dimenzija: ' + W + ' × 200 cm"><rect x="60" y="20" width="' + dw + '" height="160" fill="#EADFCF" stroke="currentColor"></rect><rect x="60" y="20" width="' + dw + '" height="26" fill="#C8B39A"></rect><path d="M60 196H' + (60 + dw) + 'M60 191v10M' + (60 + dw) + ' 191v10M44 20V180M39 20h10M39 180h10" stroke="currentColor"></path><text x="' + (60 + dw / 2) + '" y="214" text-anchor="middle" font-size="12" fill="currentColor">' + W + ' cm</text><text x="39" y="104" text-anchor="end" font-size="11" fill="currentColor">200 cm</text></svg>' : '') + '</div>';
     var sim = PRODUCTS.filter(function (x) { return x.slug !== pr.slug && x.cats.some(function (cc) { return pr.cats.indexOf(cc) >= 0; }); });
     sim = sim.concat(PRODUCTS.filter(function (x) { return x.slug !== pr.slug && sim.indexOf(x) < 0; })).slice(0, 3);
-    var inquiry = '/#kontakt';
+    var inquiry = './#kontakt';
     app.innerHTML = '<div class="wrap">' +
-      '<nav class="crumbs" aria-label="Putanja"><a href="/">Početna</a><span aria-hidden="true">/</span><a href="/katalog" data-list>Katalog</a><span aria-hidden="true">/</span><span>' + esc(pr.catLabel) + '</span><span aria-hidden="true">/</span><span>' + esc(pr.name) + '</span></nav>' +
+      '<nav class="crumbs" aria-label="Putanja"><a href="./">Početna</a><span aria-hidden="true">/</span><a href="katalog" data-list>Katalog</a><span aria-hidden="true">/</span><span>' + esc(pr.catLabel) + '</span><span aria-hidden="true">/</span><span>' + esc(pr.name) + '</span></nav>' +
       '<div class="pd"><div class="pd__gal" aria-label="Galerija">' + gal.join('') + '</div><div class="pd__panel">' +
       '<p class="t-sub">' + esc(pr.catLabel) + '</p><h1>' + esc(pr.name) + '</h1>' + (pr.placeholderName ? '<p><span class="ph">[[PLACEHOLDER: naziv modela]]</span></p>' : '') +
       '<p class="t-lead pd__desc">' + esc(pr.desc) + '</p>' +
@@ -154,7 +154,7 @@
   }
   function open(slug, push) {
     S.slug = slug; S.cfg = freshCfg(find(slug)); S.saved = ''; S.roll += 1;
-    if (push) history.pushState({ slug: slug }, '', slug ? '/katalog?model=' + slug : '/katalog' + (S.cat !== 'all' ? '?kategorija=' + S.cat : ''));
+    if (push) history.pushState({ slug: slug }, '', slug ? 'katalog?model=' + slug : 'katalog' + (S.cat !== 'all' ? '?kategorija=' + S.cat : ''));
     render(); window.scrollTo(0, 0);
   }
   function setCfg(patch) { for (var k in patch) S.cfg[k] = patch[k]; S.roll += 1; S.saved = ''; var y = window.scrollY; render(); window.scrollTo(0, y); }
@@ -163,7 +163,7 @@
     var t = e.target.closest('button, a'); if (!t || !app.contains(t)) return;
     if (t.hasAttribute('data-open')) { e.preventDefault(); open(t.getAttribute('data-open'), true); return; }
     if (t.hasAttribute('data-list')) { e.preventDefault(); open(null, true); return; }
-    if (t.hasAttribute('data-cat')) { S.cat = t.getAttribute('data-cat'); var dlg = app.querySelector('dialog'); var wasOpen = dlg && dlg.open; history.replaceState(null, '', '/katalog' + (S.cat !== 'all' ? '?kategorija=' + S.cat : '')); render(); if (wasOpen) app.querySelector('dialog').showModal(); return; }
+    if (t.hasAttribute('data-cat')) { S.cat = t.getAttribute('data-cat'); var dlg = app.querySelector('dialog'); var wasOpen = dlg && dlg.open; history.replaceState(null, '', 'katalog' + (S.cat !== 'all' ? '?kategorija=' + S.cat : '')); render(); if (wasOpen) app.querySelector('dialog').showModal(); return; }
     if (t.hasAttribute('data-view')) { S.dense = t.getAttribute('data-view') === 'd'; var d2 = app.querySelector('dialog'), o2 = d2 && d2.open; render(); if (o2) app.querySelector('dialog').showModal(); return; }
     if (t.hasAttribute('data-sheet')) { var d = app.querySelector('dialog'); if (d && d.showModal) d.showModal(); return; }
     if (t.hasAttribute('data-sheet-close')) { app.querySelector('dialog').close(); return; }
@@ -172,8 +172,8 @@
     else if (t.hasAttribute('data-dim')) { var v = t.getAttribute('data-dim'); setCfg({ dim: v === 'custom' ? 'custom' : Number(v) }); }
     else if (t.hasAttribute('data-fab')) setCfg({ fabric: t.getAttribute('data-fab') });
     else if (t.hasAttribute('data-save')) {
-      var q = query(pr), url = location.origin + '/katalog?' + q;
-      history.replaceState({ slug: pr.slug }, '', '/katalog?' + q);
+      var q = query(pr), url = new URL('katalog?' + q, location.href).href;
+      history.replaceState({ slug: pr.slug }, '', 'katalog?' + q);
       S.saved = 'Link je sačuvan u adresi stranice.';
       if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { S.saved = 'Link konfiguracije je kopiran.'; app.querySelector('.savednote').textContent = S.saved; }, function () {});
       app.querySelector('.savednote').textContent = S.saved;

@@ -1,4 +1,7 @@
-# EN-DIZAJN — sajt (statička verzija za Vercel)
+# EN-DIZAJN — sajt, verzija sa hero sekcijom „Za vaš dom“ (GitHub Pages)
+
+Ova verzija na početnoj prikazuje samo levu polovinu hero sekcije (garniture i kreveti) preko cele širine.
+Sve ostalo je isto kao u glavnoj verziji.
 
 Čist HTML, CSS i JavaScript. Nema build koraka, nema zavisnosti.
 
@@ -16,22 +19,36 @@ assets/js/katalog.js  podaci o modelima, filteri, konfigurator
 assets/img/           obrađene slike (NN.webp + verzije 640 i 1024 px)
 ```
 
-## Objava na Vercelu
+## Objava na GitHub Pages
 
-**Najbrže (bez naloga na GitHubu):**
-1. Raspakujte ZIP.
-2. Instalirajte Vercel CLI: `npm i -g vercel`
-3. U raspakovanom folderu pokrenite `vercel`, zatim `vercel --prod`.
-   Kod pitanja o podešavanjima: Framework „Other“, Build Command prazno, Output Directory `.`
+Sve putanje su relativne, pa sajt radi i na `korisnik.github.io/ime-repozitorijuma/` i na sopstvenom domenu.
 
-**Preko GitHuba (preporučeno za dugoročno održavanje):**
-1. Postavite sadržaj foldera u novi GitHub repozitorijum.
-2. Na vercel.com: Add New → Project → izaberite repozitorijum.
-3. Framework Preset: **Other**. Build i Output ostavite prazno. Deploy.
-   Svaki push na `main` automatski objavljuje novu verziju.
+**Preko web interfejsa (bez komandne linije):**
+1. Na github.com napravite novi repozitorijum, npr. `en-dizajn` (Public; za Private je potreban plaćeni plan za Pages).
+2. „uploading an existing file“ → prevucite **sav sadržaj** raspakovanog foldera (ne sam folder), uključujući `.nojekyll`.
+   Na macOS-u skrivene fajlove u Finderu prikazujete sa Cmd + Shift + .
+3. Commit changes.
+4. Settings → Pages → Build and deployment → Source: **Deploy from a branch** → Branch: **main**, folder **/ (root)** → Save.
+5. Posle 1–2 minuta sajt je na `https://korisnik.github.io/en-dizajn/`.
 
-**Domen:** Vercel → Project → Settings → Domains. Posle dodavanja domena zamenite
-`[[PLACEHOLDER: domen]]` u `robots.txt` i `sitemap.xml`.
+**Preko komandne linije:**
+```bash
+cd en-dizajn-github
+git init -b main
+git add .
+git commit -m "EN-DIZAJN sajt"
+git remote add origin https://github.com/KORISNIK/en-dizajn.git
+git push -u origin main
+```
+Zatim korak 4 iznad.
+
+**Sopstveni domen:** Settings → Pages → Custom domain (npr. `endizajn.rs`), pa kod registrara domena dodajte DNS zapise
+koje GitHub prikaže. Uključite „Enforce HTTPS“. Posle toga upišite adresu u `robots.txt` i `sitemap.xml`.
+
+**Napomene:**
+- `.nojekyll` mora da ostane u korenu (GitHub inače preskače neke fajlove).
+- Adrese bez `.html` rade (`/katalog`), kao i linkovi konfiguracije (`katalog?model=zeka&mere=120…`).
+- `vercel.json` GitHub ignoriše. Može da ostane ako želite i Vercel kao rezervu.
 
 ## Pre puštanja u javnost (otvorene stavke)
 

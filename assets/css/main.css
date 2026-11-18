@@ -13,7 +13,7 @@
   --outQuart:cubic-bezier(.165,.84,.44,1); --outQuint:cubic-bezier(.23,1,.32,1);
   --outExpo:cubic-bezier(.19,1,.22,1);
   --k:1; --s0:1.2; --dk:1;
-  --grain:url(/assets/img/grain.png);
+  --grain:url(../img/grain.png);
 }
 html{scroll-behavior:auto}
 body{margin:0;background:#F4EDE3}
@@ -713,3 +713,71 @@ body{margin:0;background:#F4EDE3}
 .card--low .card__bg::after{background:linear-gradient(180deg,rgba(26,18,13,0) 38%,rgba(26,18,13,.74))}
 .card--low .card__t{text-shadow:0 1px 12px rgba(26,18,13,.35)}
 @container (max-width:991px){.duo__mid{top:16px;right:auto;left:16px;transform:none}}
+
+/* ---------- v5.3 contrast pass (WCAG AA, measured on the real images) ---------- */
+/* hero halves + world bands: scrim starts where the text starts and ends near-opaque */
+.half::after,.wband::after{background:linear-gradient(180deg,rgba(26,18,13,.42) 0,rgba(26,18,13,0) 22%,rgba(26,18,13,0) 34%,rgba(26,18,13,.62) 52%,rgba(26,18,13,.9) 100%)}
+.half__k,.wband__k,.half__s,.wband__s{color:var(--cream)}
+.half__c,.wband__c{text-shadow:0 1px 18px rgba(26,18,13,.35)}
+@container (max-width:991px){
+  .half::after,.wband::after{background:linear-gradient(180deg,rgba(26,18,13,.42) 0,rgba(26,18,13,0) 16%,rgba(26,18,13,.55) 30%,rgba(26,18,13,.88) 55%,rgba(26,18,13,.93) 100%)}
+}
+/* model cards: a frosted espresso label behind name and caption, image stays clean */
+.card--low .card__bg::after{background:linear-gradient(180deg,rgba(26,18,13,0) 60%,rgba(26,18,13,.35))}
+.card--low .card__c{gap:6px;padding:0 20px 20px}
+.card--low .card__t,.card--low .card__cap{background:rgba(26,18,13,.74);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--cream);border-radius:999px;text-shadow:none}
+.card--low .card__t{padding:.45em .9em .4em;font-size:1.05rem;letter-spacing:.14em}
+.card--low .card__cap{padding:.45em 1em;font-size:.6875rem;max-width:none}
+/* centred card titles (style tile and any non-low card) */
+.card:not(.card--low) .card__bg::after{background:radial-gradient(ellipse 72% 62% at 50% 50%,rgba(26,18,13,.66),rgba(26,18,13,.22) 85%)}
+/* banner + Instagram labels */
+.banner__ov{background:rgba(34,25,19,.68)}
+.banner__c .t-micro{color:var(--cream)}
+.tl__l{background:linear-gradient(rgba(26,18,13,0),rgba(26,18,13,.82) 45%)}
+/* placeholders on the espresso footer bar */
+.fbar .ph{color:var(--sand)}
+.tl__l{background:linear-gradient(rgba(26,18,13,.4),rgba(26,18,13,.9) 55%)}
+/* v5.4: O nama — two equal images with a real gap */
+.duo{grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem}
+@container (max-width:991px){.duo{grid-template-columns:1fr}}
+/* v5.4: navigation always visible (no hide on scroll) */
+.hdr.is-hidden{transform:none!important;opacity:1!important}
+/* v5.4: social squares — all four in one row */
+.socials{display:grid;grid-template-columns:repeat(4,52px);gap:10px}
+.sq{width:52px;height:52px}
+.sq svg{width:18px;height:18px}
+
+/* v5.5: Instagram tile with a wide image — whole bed when expanded, blurred fill on the sides */
+.tl--fit .tl__fit{object-fit:contain;opacity:0;transition:opacity 500ms var(--standard)}
+.tl--fit .tl__base{transition:filter 600ms var(--standard),transform 800ms var(--outExpo)}
+.tl--fit:hover .tl__fit,.tl--fit:focus-visible .tl__fit{opacity:1}
+.tl--fit:hover .tl__base,.tl--fit:focus-visible .tl__base{filter:blur(18px) brightness(.85);transform:scale(1.15)}
+@media (hover:none){.tl--fit .tl__fit{opacity:1}.tl--fit .tl__base{filter:blur(18px) brightness(.85);transform:scale(1.15)}}
+@container (max-width:767px){.tl--fit .tl__fit{opacity:1}.tl--fit .tl__base{filter:blur(18px) brightness(.85);transform:scale(1.15)}}
+@media (prefers-reduced-motion:reduce){.tl--fit .tl__fit,.tl--fit .tl__base{transition:none}}
+
+/* v5.5: O nama images lead into their worlds — slow zoom + arrow on hover */
+.duo__link{display:block;text-decoration:none;color:inherit}
+.duo__link .iw img{transition:transform 1.2s var(--outQuart)}
+.is-in .duo__link .iw img{transition:transform 1.2s var(--outQuart),opacity 600ms var(--standard)}
+.duo__link:hover .iw img,.duo__link:focus-visible .iw img{transform:scale(1.04)}
+.duo__arr{width:16px;height:16px;align-self:center;margin-left:auto;transition:transform 300ms var(--outQuart)}
+.duo__link:hover .duo__arr,.duo__link:focus-visible .duo__arr{transform:translate(3px,-3px)}
+.duo__link:hover .duo__cap span{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;text-decoration-color:var(--brass)}
+@media (prefers-reduced-motion:reduce){.duo__link .iw img,.duo__arr{transition:none}.duo__link:hover .iw img{transform:none}}
+
+/* v5.6: hero variant "dom" — only the left world, full width */
+.hero-dom .hero2 .half+.half,.hero-dom .hero2 .seam{display:none}
+.hero-dom .hero2 .half img{object-position:50% 70%!important}
+.hero-dom .hero2 .half:hover{flex-grow:1}
+.hero-dom .hero2 .half__c{left:max(56px,calc((100% - 1140px) / 2 + 30px));right:auto;bottom:80px;max-width:640px}
+.hero-dom .hero2 .half__h{font-size:6.5rem}
+.hero-dom .hero2 .half__c>.half__s{opacity:1!important;transform:none!important}
+.hero-dom .hero2 .mid{top:auto;left:auto;right:max(56px,calc((100% - 1140px) / 2 + 30px));bottom:92px;transform:none!important}
+@container (max-width:991px){
+  .hero-dom .hero2 .half{height:620px}
+  .hero-dom .hero2 .half__c{left:24px;right:24px;bottom:40px}
+  .hero-dom .hero2 .half__h{font-size:3.5rem}
+  .hero-dom .hero2 .mid{right:auto;left:24px;bottom:auto;top:96px}
+}
+@container (max-width:479px){.hero-dom .hero2 .half__h{font-size:2.9rem}.hero-dom .hero2 .half{height:560px}}
