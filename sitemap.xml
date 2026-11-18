@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Zamenite [[PLACEHOLDER: domen]] pravim domenom pre objave -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://[[PLACEHOLDER: domen]]/</loc></url>
+  <url><loc>https://[[PLACEHOLDER: domen]]/katalog</loc></url>
+  <url><loc>https://[[PLACEHOLDER: domen]]/katalog?model=luna</loc></url>
+  <url><loc>https://[[PLACEHOLDER: domen]]/katalog?model=chester</loc></url>
+  <url><loc>https://[[PLACEHOLDER: domen]]/katalog?model=bubble</loc></url>
+  <url><loc>https://[[PLACEHOLDER: domen]]/katalog?model=zeka</loc></url>
+  <url><loc>https://[[PLACEHOLDER: domen]]/katalog?model=meda</loc></url>
+  <url><loc>https://[[PLACEHOLDER: domen]]/katalog?model=babl-baby</loc></url>
+</urlset>
